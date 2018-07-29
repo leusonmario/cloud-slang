@@ -79,8 +79,10 @@ jdk:
 
 
 
+
+
 script:
-  - mvn clean cobertura:cobertura -Dtest=SpringJUnit4ClassRunner#runChild -DfailIfNoTests=false
+  - mvn clean cobertura:cobertura -Dtest=runners#ParentRunner -DfailIfNoTests=false
 
 before_deploy:
 - tar -zcvf coverage-result.tar.gz /home/travis/build/leusonmario/cloud-slang/target/site/cobertura
