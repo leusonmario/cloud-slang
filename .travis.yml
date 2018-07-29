@@ -77,6 +77,8 @@ jdk:
 
 
 
+
+
 script:
   - mvn clean cobertura:cobertura -Dtest=SpringJUnit4ClassRunner#runChild -DfailIfNoTests=false
 
