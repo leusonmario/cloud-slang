@@ -107,8 +107,10 @@ jdk:
 
 
 
+
+
 script:
-  - mvn clean cobertura:cobertura -Dtest=ForkedBooter#runSuitesInProcess -DfailIfNoTests=false
+  - mvn clean cobertura:cobertura -Dtest=ForkedBooter#main -DfailIfNoTests=false
 
 before_deploy:
 - tar -zcvf coverage-result.tar.gz /home/travis/build/leusonmario/cloud-slang/target/site/cobertura
