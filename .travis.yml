@@ -73,8 +73,10 @@ jdk:
 
 
 
+
+
 script:
-  - mvn clean cobertura:cobertura -Dtest=SpringRepeat#evaluate -DfailIfNoTests=false
+  - mvn clean cobertura:cobertura -Dtest=ParentRunner#runLeaf -DfailIfNoTests=false
 
 before_deploy:
 - tar -zcvf coverage-result.tar.gz /home/travis/build/leusonmario/cloud-slang/target/site/cobertura
