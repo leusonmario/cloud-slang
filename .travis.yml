@@ -14,8 +14,10 @@ jdk:
 
 
 
+
+
 script:
-  - mvn clean cobertura:cobertura -Dtest=TransformersHandler#runTransformers -DfailIfNoTests=false
+  - mvn clean cobertura:cobertura -Dtest=ExecutableBuilder#compileStep -DfailIfNoTests=false
 
 before_deploy:
 - tar -zcvf coverage-result.tar.gz /home/travis/build/leusonmario/cloud-slang/target/site/cobertura
