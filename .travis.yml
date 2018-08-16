@@ -32,8 +32,10 @@ jdk:
 
 
 
+
+
 script:
-  - mvn clean cobertura:cobertura -Dtest=SlangCompilerImpl#compileSource -DfailIfNoTests=false
+  - mvn clean cobertura:cobertura -Dtest=ExternalSlangCompilerIntegrationTest#testCompileFlowWithPathExternalStep -DfailIfNoTests=false
 
 before_deploy:
 - tar -zcvf coverage-result.tar.gz /home/travis/build/leusonmario/cloud-slang/target/site/cobertura
