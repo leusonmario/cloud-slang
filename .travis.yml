@@ -1,26 +1,28 @@
+
+sudo: required
 language: java
 
 jdk:
   - oraclejdk8
   - openjdk7
 
-before_deploy: >
-  ant -f build/ant.xml
-  
+
+
+script:
+  - mvn clean cobertura:cobertura -Dtest=SimpleFlowTest#testFlowWithGlobalSession -DfailIfNoTests=false
+
+before_deploy:
+- tar -zcvf coverage-result.tar.gz /home/travis/build/leusonmario/cloud-slang/target/site/cobertura
+
 deploy:
   provider: releases
-  prerelease: true
   api_key:
-    secure: "yJHXG2Cn0v4mofCEF58eAnmOM3CzewEa42YPormioOYq0iQHNoF7NdNN7xpItIVoxmp383WsYGDeYeCzFhd4K+4xVQt1n3/jG1E3AJbSGJ7IEWUygUNec7HWS+q+yR911rMIPo8MiIZMjZFxCd4f8zaTqO0WQUui1v+QWHF9rAo="
-  file:
-    - build/target/cloudslang-cli/cslang-cli.zip
-    - build/target/cloudslang-cli/cslang-cli.tar.gz
-    - build/target/cslang-builder/cslang-builder.zip
+    secure: "l1kFrhnFDG+1ZU7s0Rx6RD3Vb1nGFfNCAbXV1Y9qVtfox5IGltQqVQo0zdB1rQhIJ+KyC/YcaZsGYt93oS6X/uHiVGjTAkjWddAMXNE3s/0r9hqUrhLgwFUmms1CNZt9HhwYlUYM176bwiWpx4gBWo5ziF84M+SxyZmrUUL43wkNu3hVMI4jMBdDng9mXjIPxxTws0SDXNTV7NIr5IhAAc+UTSpBLwh+3l63ckie3uDySjJYAElszNGSpq+G4hTyIBCNXL4ddQ2eM791huYQsrnx9Es/B3DpKqxlbHk9hQ6eP1aGI+elD/fo1Sg4pO46HuOr5IJocMWhyPgUhm6AX/99SBKjVCjjbanHQM153UR74kIDgt8sUzcUcSY98vwfX+L9zQs+howQczMhihMmSH6aftrG3hk4TH2p4MO/TeNLYIuanijQcxwd7S0TqS5/+5NiIzadIVcyXtt0Q1kZLz/WkryXf12V1EbZhVlYzFclg/EaVZHI+8YqduuJuZ+tC/q+i8+c1rJAx9CEsaFvKpCIx3i42BqCBhGeh+V853X/CYM3wnKGAhHma21kajCcL1paPhvhcYiI2VKctysFotL2lEMUhc8BMZ4+4nuvV/Ctbd5C7vR6HTLS+4HNH2YSDZfkOFfaOq9ge77ZWW6jMEbi3EKlSGO27U0bt5Mr1gg="
+
+
+  file: coverage-result.tar.gz
+  file_glob: true
+  overwrite: true
   skip_cleanup: true
   on:
-    repo: CloudSlang/cloud-slang
     tags: true
-    jdk: openjdk7
-
-after_success:
-  - mvn cobertura:cobertura coveralls:report
